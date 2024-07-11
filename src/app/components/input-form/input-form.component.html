@@ -1,1 +1,51 @@
-<p class="text-5xl font-bold text-blue-500">input-form works!</p>
+<div
+  class="border p-6 flex flex-col gap-6 items-center shadow-sm rounded-md px-10"
+>
+  <h1>Input Form</h1>
+  <mat-form-field class="">
+    <mat-label>User Name*</mat-label>
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="userName"
+      placeholder="Enter your name"
+    />
+    <button
+      *ngIf="userName"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="userName = ''"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <mat-form-field class="">
+    <mat-label>Select Workout</mat-label>
+    <mat-select [(ngModel)]="selectedWorkout">
+      <mat-option *ngFor="let workout of workoutOptions" [value]="workout">
+        {{ workout }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="">
+    <mat-label>Workout Minutes*</mat-label>
+    <input
+      matInput
+      type="number"
+      [(ngModel)]="workoutMinutes"
+      placeholder="Enter workout minutes"
+    />
+    <button
+      *ngIf="workoutMinutes !== null"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="workoutMinutes = null"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
