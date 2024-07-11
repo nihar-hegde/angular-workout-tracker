@@ -4,14 +4,22 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { FormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
+import { WorkoutService } from '../../services/workout.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-input-form',
   standalone: true,
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
@@ -23,20 +31,22 @@ import { MatSelectModule } from '@angular/material/select';
   styleUrls: ['./input-form.component.css'],
 })
 export class InputFormComponent {
-  userName: string = '';
-  selectedWorkout: string = '';
-  workoutMinutes: number | null = null;
+  workoutForm: FormGroup;
+  workoutTypes = ['Running', 'Cycling', 'Swimming', 'Yoga'];
 
-  workoutOptions: string[] = [
-    'Running',
-    'Cycling',
-    'Swimming',
-    'Yoga',
-    'Weightlifting',
-  ];
-  onSubmit() {
-    console.log('User Name:', this.userName);
-    console.log('Selected Workout:', this.selectedWorkout);
-    console.log('Workout Minutes:', this.workoutMinutes);
+  constructor(private fb: FormBuilder, private workoutService: WorkoutService) {
+    this.workoutForm = this.fb.group({
+      name: ['', Validators.required],
+      type: ['', Validators.required],
+      minutes: ['', [Validators.required, Validators.min(1)]],
+    });
+  }
+
+  onSubmit(): void {
+    if (this.workoutForm.valid) {
+      const { name, type, minutes } = this.workoutForm.value;
+      this.workoutService.addWorkout(name, { type, minutes });
+      this.workoutForm.reset();
+    }
   }
 }
