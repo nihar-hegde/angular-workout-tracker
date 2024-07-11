@@ -34,4 +34,9 @@ export class InputFormComponent {
     'Yoga',
     'Weightlifting',
   ];
+  onSubmit() {
+    console.log('User Name:', this.userName);
+    console.log('Selected Workout:', this.selectedWorkout);
+    console.log('Workout Minutes:', this.workoutMinutes);
+  }
 }
