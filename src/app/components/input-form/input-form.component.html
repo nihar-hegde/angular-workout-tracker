@@ -1,36 +1,37 @@
 <div
-  class="border p-6 flex flex-col gap-6 items-center shadow-sm rounded-md px-10"
+  class="border py-6 flex flex-col gap-4 items-center shadow-sm rounded-md px-10"
 >
-  <h1>Input Form</h1>
+  <h1>Input Workout</h1>
   <form
     [formGroup]="workoutForm"
     (ngSubmit)="onSubmit()"
-    class="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md"
+    class="max-w-6xl mx-auto flex flex-col gap-4 mt-8 p-6 bg-white rounded-lg shadow-md"
   >
-    <mat-form-field class="w-full mb-4">
-      <mat-label>Name</mat-label>
-      <input matInput formControlName="name" placeholder="Enter your name" />
-    </mat-form-field>
+    <div class="flex flex-row gap-4 w-full">
+      <mat-form-field class="w-full mb-4">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="Enter your name" />
+      </mat-form-field>
 
-    <mat-form-field class="w-full mb-4">
-      <mat-label>Workout Type</mat-label>
-      <mat-select formControlName="type">
-        <mat-option *ngFor="let type of workoutTypes" [value]="type">
-          {{ type }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field class="w-full mb-4">
+        <mat-label>Workout Type</mat-label>
+        <mat-select formControlName="type">
+          <mat-option *ngFor="let type of workoutTypes" [value]="type">
+            {{ type }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field class="w-full mb-4">
-      <mat-label>Time (minutes)</mat-label>
-      <input
-        matInput
-        type="number"
-        formControlName="minutes"
-        placeholder="Enter workout duration"
-      />
-    </mat-form-field>
-
+      <mat-form-field class="w-full mb-4">
+        <mat-label>Time (minutes)</mat-label>
+        <input
+          matInput
+          type="number"
+          formControlName="minutes"
+          placeholder="Enter workout duration"
+        />
+      </mat-form-field>
+    </div>
     <button
       mat-raised-button
       color="primary"

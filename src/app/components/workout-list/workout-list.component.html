@@ -1,1 +1,62 @@
-<p>workout-list works!</p>
+<div
+  class="border py-6 flex flex-col gap-4 items-center shadow-sm rounded-md px-10"
+>
+  <h2 class="text-2xl font-bold mb-4">Workout List</h2>
+
+  <div>
+    <div class="mb-1 flex justify-between w-full gap-4">
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Search by username"
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="applyFilters()"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select
+          placeholder="Filter by workout type"
+          [(ngModel)]="selectedWorkoutType"
+          (ngModelChange)="applyFilters()"
+        >
+          <mat-option *ngFor="let type of workoutTypes" [value]="type">{{
+            type
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <table mat-table [dataSource]="filteredData" class="w-full">
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef>Username</th>
+        <td mat-cell *matCellDef="let element">{{ element.username }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="workouts">
+        <th mat-header-cell *matHeaderCellDef>Workouts</th>
+        <td mat-cell *matCellDef="let element">{{ element.workouts }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="workoutCount">
+        <th mat-header-cell *matHeaderCellDef>Number of Workouts</th>
+        <td mat-cell *matCellDef="let element">{{ element.workoutCount }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="totalMinutes">
+        <th mat-header-cell *matHeaderCellDef>Total Workout Minutes</th>
+        <td mat-cell *matCellDef="let element">{{ element.totalMinutes }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [length]="totalItems"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="onPageChange($event)"
+    >
+    </mat-paginator>
+  </div>
+</div>
